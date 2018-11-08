@@ -10,6 +10,12 @@ import { TabsPage } from '../pages/tabs/tabs';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { ChatService } from '../providers/chat-service';
+import { EmojiProvider } from '../providers/emoji';
+import { RelativeTime } from '../pipes/relative-time';
+import { ChatPage } from '../pages/chat/chat';
+import { HttpClientModule } from '@angular/common/http';
+import { EmojiPickerComponent } from '../components/emoji-picker/emoji-picker';
 
 @NgModule({
   declarations: [
@@ -17,11 +23,19 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     AboutPage,
     ContactPage,
     HomePage,
-    TabsPage
+    TabsPage,
+    ChatPage,
+    EmojiPickerComponent,
+    RelativeTime
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    HttpClientModule,
+    IonicModule.forRoot(MyApp, {
+      tabsHideOnSubPages:true,
+      tabsLayout:'icon-left',
+      preloadModules: true
+    })
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -29,12 +43,16 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     AboutPage,
     ContactPage,
     HomePage,
-    TabsPage
+    TabsPage,
+    ChatPage,
+    EmojiPickerComponent
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    EmojiProvider,
+    ChatService
   ]
 })
 export class AppModule {}
